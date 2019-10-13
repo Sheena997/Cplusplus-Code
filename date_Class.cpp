@@ -28,7 +28,7 @@ public:
 		}
 		else
 		{
-			cout <<"¹¹ÔìÊ§°Ü£¡" << endl;
+			cout <<"æ„é€ å¤±è´¥ï¼" << endl;
 		}
 	}
 	Date(const Date& d)
