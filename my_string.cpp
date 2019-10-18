@@ -40,16 +40,10 @@ namespace sheena
 			_size = s._size;
 			_capacity = s._size;
 		}
-		my_string& operator=(const my_string& s)
+		my_string& operator=(const my_string s)
 		{
-			if (this != &s)
-			{
-				delete[] _str;
-				_str = new char[strlen(s._str) + 1];
-				strcpy(_str, s._str);
-				_size = s._size;
-				_capacity = s._capacity;
-			}
+			swap(_str, s._str);
+			delete[] s._str;
 			return *this;
 		}
 		 
@@ -82,7 +76,7 @@ namespace sheena
 			return _capacity;
 		}
 
-		//是对象大小变为n
+		//使对象大小变为n
 		void reserve(size_t n)
 		{
 			if (n < _capacity)
@@ -99,7 +93,12 @@ namespace sheena
 		{
 			assert(pos < _size);
 			if (_size == _capacity)
+			{
+				if(_capacity == 0)
+					reserve(8);
 				reserve(_capacity * 2);
+			}
+				
 			size_t end = _size + 1;
 			while (end > pos)
 			{
@@ -283,13 +282,14 @@ ostream& operator<<(ostream& out, const my_string& s)
 
 istream& operator >> (istream& in, my_string& s)
 {
-	char ch;
-	while (in >> ch)
+	char ch = in.get();
+	while(1)
 	{
-		if (ch == ' ' || ch == '\n')
+		if(ch == ' ' || ch == '\n')
 			return in;
 		else
 			s += ch;
+		ch = in.get();
 	}
 	return in;
 }
