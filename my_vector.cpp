@@ -15,14 +15,34 @@ namespace sheena
 			,_finish(nullptr)
 			,_end_of_storage(nullptr)
 		{}
+		
 		my_vector(const my_vector<T>& v)//拷贝构造
 		{
 			_start = new T[v.size()];
+			//内置类型
 			memcpy(_start, v._start, sizeof(T)*v.size());
+			/*
+			//自定义类型
+			for(int i = 0; i < v.size(); ++i)
+				_start[i] = v._start[i];
+			*/
 			_finish = _start + v.size();
 			_end_of_storage = _start + v.capacity();
 		}
 
+		void swap(my_vector<T>& v)
+		{
+			swap(_start, v._start);
+			swap(_finish, v._finish);
+			swap(_end_of_storage, v._end_of_storage);
+		}
+		my_vector<T>& operator=(my_vector<T> v)
+		{
+			swap(v);
+			return *this;
+		}
+		
+		
 		~my_vector()
 		{
 			if (_start)
@@ -31,6 +51,7 @@ namespace sheena
 				_start = _finish = _end_of_storage = nullptr;
 			}
 		}
+
 
 		size_t size()const
 		{
@@ -46,25 +67,11 @@ namespace sheena
 		{
 			return _start[pos];
 		}
+		
 		const T& operator[](size_t pos)const
 		{
 			return _start[pos];
 		}
-
-		void swap(my_vector<T>& v)
-		{
-			swap(_start, v._start);
-			swap(_finish, v._finish);
-			swap(_end_of_storage, v._end_of_storage);
-		}
-
-		my_vector<T>& operator=(my_vector<T> v)
-		{
-			swap(v);
-			return *this;
-		}
-
-
 
 
 		my_vector resize(size_t n, const T& val = T())
@@ -89,7 +96,13 @@ namespace sheena
 			{
 				size_t sz = size();
 				T* tmp = new T[n];
+				//内置类型
 				memecpy(tmp, _start, sizeof(T)*sz);
+				/*
+				//自定义类型
+				for(int i = 0; i < sz; ++i)
+					tmp[i] = _start[i];
+				*/
 				delete[] _start;
 				_start = tmp;
 				_finish = _start + sz;
@@ -98,16 +111,16 @@ namespace sheena
 		}
 
 
-
-
 		iterator end()
 		{
 			return _finish;
 		}
+		
 		iterator begin()
 		{
 			return _start;
 		}
+
 
 		void insert(iterator& pos, const T& x)
 		{
@@ -129,11 +142,11 @@ namespace sheena
 			*pos = x;
 			++_finish;
 		}
+		
 		void push_back(const T& x)
 		{
 			insert(end(), x);
 		}
-
 		
 		void erase(iterator pos)
 		{
@@ -146,11 +159,14 @@ namespace sheena
 			}
 			--_finish;
 		}
+		
 		void pop_back()
 		{
 			assert(_finish >= _start);
 			erase(--end());
 		}
+		
+		
 	private:
 		iterator _start;
 		iterator _finish;
