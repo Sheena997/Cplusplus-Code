@@ -22,8 +22,9 @@ namespace sheena
 		my_string(const my_string& s)
 			:_str(nullptr)
 		{
-			my_string tmp(s._str);
-			swap(tmp, _str);
+			my_string tmp(s._str);//调用构造函数
+			swap(tmp.str, _str);
+			//出了作用域tmp会自动调用析构函数释放
 		}
 		//赋值函数
 		my_string& operator=(my_string s)
