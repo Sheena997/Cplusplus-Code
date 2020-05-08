@@ -23,7 +23,7 @@ namespace sheena
 			:_str(nullptr)
 		{
 			my_string tmp(s._str);
-			swap(tmp._str, _str);
+			swap(tmp, _str);
 		}
 		//¸³Öµº¯Êý
 		my_string& operator=(my_string s)
