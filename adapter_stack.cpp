@@ -6,7 +6,7 @@ using namespace std;
 
 namespace sheena
 {
-	template <class T, class Contanier>
+	template <class T, class Contanier = deque<T>>
 	class stack
 	{
 	public:
