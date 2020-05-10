@@ -6,7 +6,7 @@ using namespace std;
 
 namespace sheena
 {
-	template <class T, class Contanier>
+	template <class T, class Contanier = deque<T>>
 	class stack
 	{
 	public:
@@ -18,7 +18,12 @@ namespace sheena
 		{
 			_con.pop_back();
 		}
+		
 		T& top()
+		{
+			return _con.back();
+		}
+		const T& top() const
 		{
 			return _con.back();
 		}
