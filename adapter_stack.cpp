@@ -18,7 +18,12 @@ namespace sheena
 		{
 			_con.pop_back();
 		}
+		
 		T& top()
+		{
+			return _con.back();
+		}
+		const T& top() const
 		{
 			return _con.back();
 		}
