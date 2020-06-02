@@ -15,7 +15,7 @@ private:
 	//C++98 只声明，不实现
 	HeapOnly(const HeapOnly&);
 	//C++11
-	//HeapOnly(const HeapOnly&) = delete;
+	HeapOnly(const HeapOnly&) = delete;
 };
 
 
